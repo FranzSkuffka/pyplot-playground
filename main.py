@@ -30,7 +30,16 @@ y3 = 0.00025 + 0.001 * np.exp(-x/130.) + scipy.stats.gamma(15).rvs(len(x))*(1-np
 y4 = 0.00025 + 0.001 * np.exp(-x/150.) + scipy.stats.gamma(30).rvs(len(x))*(1-np.exp(-x/100))*2e-5 * 1000 * 3.5 + 4
 
 
-fig, ax = plt.subplots()
+def cm2inch(*tupl):
+    inch = 2.54
+    if isinstance(tupl[0], tuple):
+        return tuple(i/inch for i in tupl[0])
+    else:
+        return tuple(i/inch for i in tupl)
+
+fig = plt.figure(1, figsize=cm2inch((30, 30)))
+
+ax = plt.subplot(2, 1, 1)
 
 # Axis configuration
 # Draw one plot
@@ -54,11 +63,12 @@ ax.spines['bottom'].set_position('zero')
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
+
 # set specific range axes
 plt.ylim(top=10, bottom=-8)
 plt.xlim(left=START, right=END)
 
-plt.legend(loc='best')
+legend = plt.legend(loc='best', frameon=False)
 
 # make spines thicker
 ax.spines['left'].set_linewidth(1.5)
